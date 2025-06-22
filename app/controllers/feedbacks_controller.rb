@@ -1,22 +1,25 @@
 class FeedbacksController < ApplicationController
+    # GET /products/:product_id/feedbacks
     def index
-        @feedbacks = Feedback.all
-        @feedback = Feedback.new
+        @product = Product.find(params[:product_id])
+        @feedbacks = @product.feedbacks
     end
 
+    # GET /products/:product_id/feedbacks/new
     def new
         @product = Product.find(params[:product_id])
-        @feedback = Feedback.new
+        @feedback = @product.feedbacks.build
     end
 
     def create
         @feedback = Feedback.new(feedback_params)
+        @product = Product.find(params[:product_id])
 
         respond_to do |format|
             if @feedback.save
                 format.html { redirect_to products_path, notice: "Feedback submitted!" }
             else
-                format.html { render :new, status: :unprocessable_entity }
+                format.html { render :new, status: :unprocessable_entity, product: @product, notice: "select" }
             end
         end
     end
