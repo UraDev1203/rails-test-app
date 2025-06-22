@@ -1,0 +1,5 @@
+<div class="block mb-2">
+    <%= product.name %>
+    <%= link_to "Add Feedback", new_feedback_path(product_id: product.id), class: "btn bg-red-100" %>
+    <%= link_to "View Feedback", new_feedback_path(product_id: product.id), class: "btn bg-gray-100" %>
+</div>
